@@ -7,8 +7,35 @@ class TaskForm extends Component {
     super(props);
 
     this.state = {
+      id: '',
       name: '',
       status: false
+    }
+  }
+
+  componentWillMount() {
+    if (this.props.task) {
+      this.setState({
+        id: this.props.task.id,
+        name: this.props.task.name,
+        status: this.props.task.status,
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.task) {
+      this.setState({
+        id: nextProps.task.id,
+        name: nextProps.task.name,
+        status: nextProps.task.status,
+      });
+    } else if (!nextProps.task) {
+      this.setState({
+        id: '',
+        name: '',
+        status: false
+      })
     }
   }
 
@@ -42,20 +69,22 @@ class TaskForm extends Component {
   }
 
   render() {
+    var { id } = this.state
+
     return (
       <div style={{
         border: "1px solid #e1e1e1",
         borderRadius: 5,
       }}>
-        <h5 style={{padding: " 10px 15px", background: "#f4f4f4"}}>
-          Add Item 
+        <h6 style={{padding: " 10px 15px", background: "#f4f4f4"}}>
+          { id !== '' ? 'Edit Item' : 'Add Item' }
           <span 
-            style={{float: "right", cursor: "pointer"}} 
-            className="mdi mdi-close"
+            style={{float: "right", cursor: "pointer", marginTop: "-5px"}} 
+            className="mdi mdi-close mdi-24px"
             onClick={ this.onCloseForm }
           >
           </span>
-        </h5>
+        </h6>
         <form className="p-3" onSubmit={this.onSubmit}>
           <div className="grey-text">
             <input 
@@ -79,12 +108,16 @@ class TaskForm extends Component {
             </select>
           </div>
           <div className="text-center mb-3 mt-3">
-            <MDBBtn type="submit" color="success mr-3">Add Item</MDBBtn>
+            <MDBBtn type="submit" color="success mr-3">
+              <i className="mdi mdi-donkey mr-1" />
+              Save
+            </MDBBtn>
             <MDBBtn 
               color="danger"
               type="button"
               onClick={this.onClear}
             >
+              <i className="mdi mdi-cancel mr-1" />
               Cancel
             </MDBBtn>
           </div>
