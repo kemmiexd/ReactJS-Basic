@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBInput } from 'mdbreact';
+import { connect } from 'react-redux';
 
 import TaskItem from './TaskItem';
 
@@ -88,4 +89,10 @@ class TaskBoard extends Component {
   }
 }
 
-export default TaskBoard;
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasks
+  }
+};
+
+export default connect(mapStateToProps, null)(TaskBoard);

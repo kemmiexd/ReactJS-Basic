@@ -4,7 +4,7 @@ import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from
 
 class Sort extends Component {
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    
   }
 
   onClick = (sortBy, sortValue) => {
